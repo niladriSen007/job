@@ -2,10 +2,6 @@ const LocationFilter = ({selectedLoc,setLocationHandler,setSelectedLoc}) => {
   // const locations = ["All","Kolkata", "Mumbai", "Delhi", "Hyderabad", "Bangalore"];
   const locations = [
     {
-      label:"All",
-      value:"all"
-    },
-    {
       label:"Kolkata",
       value:"kolkata"
     },

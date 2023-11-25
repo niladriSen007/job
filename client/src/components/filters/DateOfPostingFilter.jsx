@@ -3,10 +3,6 @@ const DateOfPostingFilter = ({selectedDOP,setSelectedDOP,setDateOfPostingHandler
   // const dop = ["All time","Last 24 hours", "Last 7 days", "Last Month"];
   const dop = [
     {
-      label:"All time",
-      value:"alltime"
-    },
-    {
       label:"Last 24 hours",
       value:"last24hours"
     },
