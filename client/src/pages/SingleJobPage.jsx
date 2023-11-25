@@ -1,19 +1,38 @@
 import axios from "axios";
 const REACT_APP_API = "http://localhost:5000";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
+import { useJobAuth } from "../store/JobContext";
+import { useState } from "react";
 
 const SingleJobPage = () => {
+  const { user } = useJobAuth();
+  console.log(user)
   const { id } = useParams();
+  const [currJob,setCurrJob] = useState()
+  const [userId,setUserId] = useState()
 
   const fetchJob = async () => {
-    console.log("Niladri");
+    // console.log("Niladri");
     const { data } = await axios.get(`${REACT_APP_API}/jobs/getJob/${id}`);
-    console.log(data?.job);
+    // console.log(data?.job);
+    setCurrJob(data?.job)
     return data?.job;
   };
 
   const { isLoading, error, data } = useQuery("jobs", fetchJob);
+
+  const addToAppliedJob = async () => {
+    const uid = user?._id;
+    console.log(user)
+    setUserId(user?._id)
+    const { data } = await axios.post(`${REACT_APP_API}/addToApply`, {
+      jobId:id,
+      userId:uid,
+    });
+    console.log(data);
+  };
+  const mutation = useMutation("addToAppliedJobs", addToAppliedJob);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
@@ -36,7 +55,10 @@ const SingleJobPage = () => {
     return (
       <div className="px-60 py-12">
         <span className="pl-20">
-          <Link to="/" className="hover:underline">Jobs</Link> {" > "} <span className="text-blue-600 underline">{id}</span>
+          <Link to="/" className="hover:underline">
+            Jobs
+          </Link>{" "}
+          {" > "} <span className="text-blue-600 underline">{id}</span>
         </span>
         <div className="mt-10 text-center flex flex-col items-center gap-6">
           <img
@@ -59,7 +81,12 @@ const SingleJobPage = () => {
               <button className="px-4 py-1 border-blue-600 border-2 text-blue-600 bg-transparent rounded-md">
                 Save Job
               </button>
-              <button className="px-4 py-1 bg-blue-600 border-blue-600 border-2 text-white rounded-md">
+              <button
+                className="px-4 py-1 bg-blue-600 border-blue-600 border-2 text-white rounded-md"
+                onClick={() => {
+                  mutation.mutate({ ...currJob, userId });
+                }}
+              >
                 Apply Now
               </button>
             </div>
