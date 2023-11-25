@@ -1,7 +1,7 @@
 import axios from "axios";
 const REACT_APP_API = "http://localhost:5000";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const SingleJobPage = () => {
   const { id } = useParams();
@@ -35,14 +35,14 @@ const SingleJobPage = () => {
   if (data) {
     return (
       <div className="px-60 py-12">
-        <span>
-          Jobs {" > "} <span className="text-blue-600 underline">{id}</span>
+        <span className="pl-20">
+          <Link to="/" className="hover:underline">Jobs</Link> {" > "} <span className="text-blue-600 underline">{id}</span>
         </span>
         <div className="mt-10 text-center flex flex-col items-center gap-6">
           <img
             src={data?.companyLogo}
-            alt=""
-            className="w-40 h-40 object-cover rounded-md "
+            alt="companylogo"
+            className="w-96 h-40 object-contain rounded-md "
           />
           <div className="flex flex-col gap-1 text-gray-600">
             <p className="font-bold"> Job id : {id}</p>
