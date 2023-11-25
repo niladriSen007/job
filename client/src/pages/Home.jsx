@@ -5,7 +5,7 @@ import Jobs from "../components/Jobs"
 
 const Home = () => {
   return (
-    <div className="px-64 ">
+    <div className="px-60 ">
       <Hero />
       <div className="flex items-start gap-4 my-12">
         <Filter />

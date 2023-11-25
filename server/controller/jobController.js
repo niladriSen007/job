@@ -43,3 +43,14 @@ export const postJob = async (req, res) => {
     console.log(e);
   }
 };
+
+
+export const getJobById = (async(req,res)=>{
+  try{
+    const {id} = req.params;
+    const job = await JobDetails.findById(id)
+    return res.json({job})
+  }catch(e){
+
+  }
+})

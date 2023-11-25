@@ -2,13 +2,7 @@ import { useState } from "react";
 import Search from "./Search";
 
 const Hero = () => {
-  const [role, setRole] = useState("");
-  const [location, setLocation] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(role, location);
-  };
   return (
     <section className="px-40 py-24 text-center">
       <h2 className="text-6xl font-semibold">
@@ -20,7 +14,7 @@ const Hero = () => {
         thousands of job in computer,engineering and technology are waiting for
         you.
       </h2>
-      <Search {...{ role, setLocation, setRole, location, handleSubmit }} />
+      <Search />
     </section>
   );
 };

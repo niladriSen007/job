@@ -2,6 +2,8 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import PostJob from "./pages/PostJob";
+import SingleJobPage from "./pages/singleJobPage";
 
 
 const Layout = () => (
@@ -26,6 +28,14 @@ const App = () => {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/postJob",
+          element: <PostJob />,
+        },
+        {
+          path: "/job/:id",
+          element: <SingleJobPage />,
         },
       ],
     },

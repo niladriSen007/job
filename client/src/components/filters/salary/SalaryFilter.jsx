@@ -2,19 +2,19 @@ const SalaryFilter = ({selectedSalRange, setSalaryRangeHandler, setSelectedSalRa
     const salRange = [
         {
           label:"> 30000",
-          value:"greaterthanthirty"
+          value:"30"
         },
         {
           label:"> 50000",
-          value:"greaterthanfifty"
+          value:"50"
         },
         {
           label:"> 80000",
-          value:"greaterthaneighty"
+          value:"80"
         },        
         {
           label:"> 100000",
-          value:"greaterthanhundred"
+          value:"100"
         },        
       ]
   return (

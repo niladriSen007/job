@@ -1,6 +1,69 @@
 import { CiSearch } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
-const Search = ({ role, setLocation, setRole, location, handleSubmit }) => {
+import { useJobAuth } from "../store/JobContext";
+const Search = () => {
+  const {
+    role,
+    setLocation,
+    setRole,
+    location,
+    handleSubmit,
+    setIsSearching,
+    showJobs,
+    setShowJobs,
+    allJobs,
+    setAllJobs,
+    pageCount,
+    setPageCount,
+    currentPage,
+    setCurrentPage,
+    count,
+    setCount,
+  } = useJobAuth();
+
+  const searchJobs = async () => {
+    let filteredJobs;
+    if (role && location) {
+      let filteredByRoleJobs = await allJobs?.filter((job) =>
+        job.jobTitle.toLowerCase().includes(role.toLowerCase())
+      );
+      filteredJobs = await filteredByRoleJobs?.filter((job) =>
+        job.jobLocation.toLowerCase().includes(location.toLowerCase())
+      );
+    } else if (role)
+      filteredJobs = await allJobs?.filter((job) =>
+        job.jobTitle.toLowerCase().includes(role.toLowerCase())
+      );
+    else if (location)
+      filteredJobs = await allJobs?.filter((job) =>
+        job.jobLocation.toLowerCase().includes(location.toLowerCase())
+      );
+    else if (!role && !location) filteredJobs = allJobs;
+    console.log(filteredJobs?.length);
+
+    if (filteredJobs.length === 0) {
+      console.log("Filtered 0")
+      setCount(false);
+      setShowJobs()
+    }
+    else {
+      setCount(true);
+      const lastRecordIndex = 5;
+      const firstRecordIndex = lastRecordIndex - 5;
+
+      const showJobs = filteredJobs?.slice(firstRecordIndex, lastRecordIndex);
+
+      const pgCount = filteredJobs
+        ? Math.ceil(filteredJobs?.length / 5)
+        : Math.ceil(allJobs?.length / 5);
+      setPageCount(pgCount);
+      setShowJobs(showJobs);
+    }
+  };
+
+  // if(role === "")
+  //   setPageCount(allJobs/5)
+
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div className="flex items-center justify-center py-10">
@@ -30,7 +93,8 @@ const Search = ({ role, setLocation, setRole, location, handleSubmit }) => {
         </div>
         <button
           type="submit"
-          className=" text-white  font-black w-24 bg-blue-600 py-3 px-2 border-2 border-blue-600 border-l-0 rounded-r-md"
+          className=" text-white  font-black w-32 bg-blue-600 py-3 px-2 border-2 border-blue-600 border-l-0 rounded-r-md"
+          onClick={searchJobs}
         >
           Search
         </button>

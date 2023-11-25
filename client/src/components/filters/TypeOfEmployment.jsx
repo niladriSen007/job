@@ -2,10 +2,6 @@ const TypeOfEmployment = ({setSelectedTOE, setTypeOfEmplymentHandler, selectedTO
     // const toe = ["Any","Full time","Part time"]
     const toe = [
         {
-          label:"Any",
-          value:"any"
-        },
-        {
           label:"Full time",
           value:"fulltime"
         },
