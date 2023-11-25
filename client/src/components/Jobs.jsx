@@ -26,10 +26,11 @@ const Jobs = () => {
     setCurrentPage,
     count,
     setCount,
+    user,
   } = useJobAuth();
 
   const [recordsPerPage] = useState(5);
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const lastRecordIndex = currentPage * recordsPerPage;
   const firstRecordIndex = lastRecordIndex - recordsPerPage;
@@ -58,7 +59,7 @@ const Jobs = () => {
     // }else{
 
     setTimeout(() => {
-      setLoading(false)
+      setLoading(false);
       const currentRecords = data?.slice(firstRecordIndex, lastRecordIndex);
       setShowJobs(currentRecords);
     }, 1000);
@@ -100,7 +101,14 @@ const Jobs = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-sm font-semibold">{job?.companyName}</span>
+              <div className="flex items-center justify-between pr-16">
+                <span className="text-sm font-semibold">
+                  {job?.companyName}
+                </span>
+                {user?.isAdmin && (
+                  <Link to={`/job/edit/${job?._id}`} className="font-bold">Edit Job</Link>
+                )}
+              </div>
               <span className="text-lg font-bold leading-relaxed">
                 {job?.jobTitle}
               </span>

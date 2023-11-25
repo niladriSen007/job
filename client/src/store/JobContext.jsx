@@ -11,6 +11,7 @@ export const JobProvider = ({ children }) => {
   const [pageCount, setPageCount] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(true);
+  const [user, setUser] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +38,8 @@ export const JobProvider = ({ children }) => {
         setAllJobs,
         pageCount,
         setPageCount,
+        user,
+        setUser,
       }}
     >
       {children}
